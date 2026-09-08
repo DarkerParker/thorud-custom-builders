@@ -1,0 +1,61 @@
+{
+  "projects": [
+    {
+      "title": "Timber framed patio cover",
+      "category": "Outdoor living",
+      "location": "Gaston, OR",
+      "year": "2025",
+      "image": "https://images.unsplash.com/photo-1654563098789-0c8342adfab1?w=900&q=70&auto=format&fit=crop",
+      "blurb": "An 18'x20' open rafter patio cover with exposed 2x6 T&G decking, all tied together with a standing seam metal roof."
+    },
+    {
+      "title": "Sherwood barn build",
+      "category": "Shops & pole buildings",
+      "location": "Sherwood, OR",
+      "year": "2026",
+      "image": "https://images.unsplash.com/photo-1601058268499-e52658b8bb88?w=900&q=70&auto=format&fit=crop",
+      "blurb": "An old horse barn turned into a modern shop with an attached 20x30 fully finished loft flex space. New slab with perimeter footings, new power, water and plumbing, framed and insulated throughout, then finished with LVP flooring, wall coverings, paint and lighting. Three new overhead doors, exterior lighting, new doors and windows, fresh paint."
+    },
+    {
+      "title": "Stamped patio",
+      "category": "Concrete",
+      "location": "Newberg, OR",
+      "year": "2024",
+      "image": "https://images.unsplash.com/photo-1786269691602-519fdaa112ea?w=900&q=70&auto=format&fit=crop",
+      "blurb": "All of it, from site prep excavation to the final seal. 600 sq ft poured with a stained and stamped texture finish, fully sealed for years of protection."
+    },
+    {
+      "title": "Two rotted decks, reframed and rebuilt",
+      "category": "Remodels & repairs",
+      "location": "Milwaukie, OR",
+      "year": "",
+      "image": "https://images.unsplash.com/photo-1587582423116-ec07293f0395?w=900&q=70&auto=format&fit=crop",
+      "blurb": "Both decks taken down to nothing and rebuilt, plus soft siding patched on a 1940s cottage."
+    },
+    {
+      "title": "Finished basement saved after water intrusion",
+      "category": "Remodels & repairs",
+      "location": "Forest Grove, OR",
+      "year": "",
+      "image": "https://images.unsplash.com/photo-1618832515490-e181c4794a45?w=900&q=70&auto=format&fit=crop",
+      "blurb": "Severe water intrusion in a finished basement. Dried out, repaired and put back together."
+    }
+  ],
+  "testimonials": [
+    {
+      "quote": "The guys came in and completely reframed and rebuilt 2 rotted decks and patched the soft siding on our 1940's cottage. It looks amazing!",
+      "who": "John L. — Milwaukie, OR"
+    },
+    {
+      "quote": "Saved my finished basement after severe water intrusion. Definitely recommend!",
+      "who": "Kim F. — Forest Grove, OR"
+    },
+    {
+      "quote": "We had a roof leak and Andrew came the same day we called and found/fixed the leak.",
+      "who": "Seth G. — Newberg, OR"
+    }
+  ],
+  "instagram": {
+    "jsonFeedUrl": ""
+  }
+}

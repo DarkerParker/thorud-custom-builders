@@ -1,0 +1,57 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+site_url: https://thorudcustombuilders.com
+
+collections:
+  - name: "content"
+    label: "Website"
+    files:
+      - file: "content.json"
+        name: "projects"
+        label: "Projects, reviews & Instagram"
+        description: "Add a project, add a review, or paste in an Instagram feed link. Hit Publish when you're done and the site updates in about a minute."
+        fields:
+          - label: "Projects"
+            name: "projects"
+            widget: "list"
+            label_singular: "project"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Job name", name: "title", widget: "string", hint: "Short. Shows as the headline on the card." }
+              - label: "Type of work"
+                name: "category"
+                widget: "select"
+                options:
+                  - "Outdoor living"
+                  - "Concrete"
+                  - "Shops & pole buildings"
+                  - "Remodels & repairs"
+                hint: "Used for the filter buttons on the Projects page."
+              - { label: "Town", name: "location", widget: "string", hint: "e.g. Newberg, OR" }
+              - { label: "Year", name: "year", widget: "string", required: false }
+              - { label: "Photo", name: "image", widget: "image", hint: "A phone photo is fine. Landscape works best." }
+              - { label: "What the job was", name: "blurb", widget: "text", hint: "A sentence or two. Plain and specific beats salesy." }
+
+          - label: "Reviews"
+            name: "testimonials"
+            widget: "list"
+            label_singular: "review"
+            summary: "{{fields.who}}"
+            fields:
+              - { label: "What they said", name: "quote", widget: "text" }
+              - { label: "Who said it", name: "who", widget: "string", hint: "e.g. John L. — Milwaukie, OR" }
+
+          - label: "Instagram"
+            name: "instagram"
+            widget: "object"
+            fields:
+              - label: "Feed link"
+                name: "jsonFeedUrl"
+                widget: "string"
+                required: false
+                hint: "Paste the Behold feed URL here. Leave blank and the site shows a fixed set of photos instead."
