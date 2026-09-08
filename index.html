@@ -222,7 +222,7 @@
         <div>
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: oklch(0.5 0.012 70); margin-bottom: 16px;">Contact</div>
           <h1 style="margin: 0; font-family: Bitter, serif; font-size: clamp(30px, 4.2vw, 46px); line-height: 1.12; letter-spacing: -0.02em; font-weight: 600; text-wrap: pretty;">Tell us what you're thinking about.</h1>
-          <p style="margin: 20px 0 0; font-size: 17px; line-height: 1.6; color: oklch(0.44 0.012 70); max-width: 44ch; text-wrap: pretty;">Estimates are free. Call or text 503‑354‑4833, or send this form and it goes straight to Andrew's inbox.</p>
+          <p style="margin: 20px 0 0; font-size: 17px; line-height: 1.6; color: oklch(0.44 0.012 70); max-width: 44ch; text-wrap: pretty;">Estimates are free. Call or text 503‑354‑4833, or fill out the form and we'll get back to you within one business day.</p>
           <dl style="margin: 40px 0 0; display: flex; flex-direction: column;">
             <sc-for list="{{ contactRows }}" as="r" hint-placeholder-count="5">
               <div style="display: flex; gap: 20px; padding: 15px 0; border-top: 1px solid oklch(0.87 0.012 85);">
@@ -252,15 +252,15 @@
             <textarea rows="5" name="message" required="required" style="font-family: inherit; font-size: 16px; padding: 13px 14px; border: 1px solid oklch(0.82 0.012 85); border-radius: 2px; background: oklch(0.985 0.008 85); color: oklch(0.19 0.01 70); resize: vertical;" style-focus="outline: none; border-color: oklch(0.42 0.09 250);"></textarea>
           </label>
           <button type="submit" style="padding: 16px; background: oklch(0.19 0.01 70); color: oklch(0.965 0.012 85); border: 0; border-radius: 2px; font-size: 15px; font-weight: 500; cursor: pointer;" style-hover="background: oklch(0.32 0.06 250);">{{ sendLabel }}</button>
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: oklch(0.55 0.012 70); text-align: center;">goes straight to thorudandrew@gmail.com</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: oklch(0.55 0.012 70); text-align: center;">No obligation. We read every one.</div>
         </form>
         </sc-if>
 
         <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
         <div style="background: oklch(0.955 0.012 85); border: 1px solid oklch(0.88 0.012 85); border-radius: 3px; padding: 44px 32px; display: flex; flex-direction: column; gap: 14px; align-items: flex-start;">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: oklch(0.42 0.09 250);">SENT</div>
-          <div style="font-family: Bitter, serif; font-size: 24px; font-weight: 600; letter-spacing: -0.015em;">Got it. We'll be in touch.</div>
-          <p style="margin: 0; font-size: 16px; line-height: 1.6; color: oklch(0.44 0.012 70);">If it's urgent, call or text 503‑354‑4833.</p>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: oklch(0.42 0.09 250);">{{ sentTag }}</div>
+          <div style="font-family: Bitter, serif; font-size: 24px; font-weight: 600; letter-spacing: -0.015em;">{{ sentTitle }}</div>
+          <p style="margin: 0; font-size: 16px; line-height: 1.6; color: oklch(0.44 0.012 70);">{{ sentBody }}</p>
           <button onClick="{{ reset }}" style="margin-top: 10px; background: none; border: 1px solid oklch(0.78 0.012 85); padding: 11px 18px; border-radius: 2px; font-size: 14px; cursor: pointer; color: oklch(0.19 0.01 70);" style-hover="border-color: oklch(0.19 0.01 70);">Send another</button>
         </div>
         </sc-if>
@@ -361,7 +361,7 @@ class Component extends DCLogic {
     window.location.href = "mailto:thorudandrew@gmail.com?subject=" +
       encodeURIComponent("Website estimate request — " + v("name")) +
       "&body=" + encodeURIComponent(body);
-    this.setState({ sent: true });
+    this.setState({ sent: true, sentMode: "mail" });
   }
 
   loadContent() {
@@ -450,6 +450,13 @@ class Component extends DCLogic {
         { k: "Warranty", v: "1 year workmanship warranty" }
       ],
       sendLabel: this.state.sending ? "Sending…" : "Send it over",
+      sentTag: this.state.sentMode === "mail" ? "ALMOST THERE" : "SENT",
+      sentTitle: this.state.sentMode === "mail"
+        ? "One more step — hit send."
+        : "Got it. We'll be in touch.",
+      sentBody: this.state.sentMode === "mail"
+        ? "We've opened a message in your email app with your details filled in. Send it and we'll have it. Or just call or text 503‑354‑4833."
+        : "You'll hear back within one business day. If it's urgent, call or text 503‑354‑4833.",
       notSent: !this.state.sent,
       sent: this.state.sent,
       onSubmit: (e) => {
@@ -473,14 +480,14 @@ class Component extends DCLogic {
           })
             .then(r => {
               if (!r.ok) throw new Error("bad status");
-              this.setState({ sent: true, sending: false });
+              this.setState({ sent: true, sentMode: "posted", sending: false });
             })
             .catch(() => { this.setState({ sending: false }); this.mailtoFallback(v); });
           return;
         }
         this.mailtoFallback(v);
       },
-      reset: () => this.setState({ sent: false })
+      reset: () => this.setState({ sent: false, sentMode: null })
     };
   }
 }
