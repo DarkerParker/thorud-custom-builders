@@ -1,11 +1,25 @@
+# ---------------------------------------------------------------------------
+# REPLACE the four values marked TODO with the ones DecapBridge shows you
+# after you create the site there. Everything below the backend block is
+# already correct and should not need changes.
+# ---------------------------------------------------------------------------
 backend:
   name: git-gateway
+  repo: TODO-your-github-user/TODO-your-repo-name
   branch: main
+  identity_url: https://auth.decapbridge.com/sites/TODO-site-id-from-decapbridge
+  gateway_url: https://gateway.decapbridge.com
+  commit_messages:
+    create: 'Added {{collection}} "{{slug}}"'
+    update: 'Updated {{collection}} "{{slug}}"'
+    delete: 'Deleted {{collection}} "{{slug}}"'
+    uploadMedia: 'Uploaded photo "{{path}}"'
+    deleteMedia: 'Deleted photo "{{path}}"'
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
-site_url: https://thorudcustombuilders.com
+site_url: https://TODO-your-site.netlify.app
 
 collections:
   - name: "content"
