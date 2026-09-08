@@ -1,25 +1,34 @@
-# ---------------------------------------------------------------------------
-# REPLACE the four values marked TODO with the ones DecapBridge shows you
-# after you create the site there. Everything below the backend block is
-# already correct and should not need changes.
-# ---------------------------------------------------------------------------
+# Use DecapBridge PKCE auth (required)
 backend:
   name: git-gateway
-  repo: TODO-your-github-user/TODO-your-repo-name
+  repo: DarkerParker/thorud-custom-builders
   branch: main
-  identity_url: https://auth.decapbridge.com/sites/TODO-site-id-from-decapbridge
+  auth_type: pkce
+  base_url: https://auth.decapbridge.com
+  auth_endpoint: /sites/4d0b0356-1046-4359-b494-aa1187527464/pkce
+  auth_token_endpoint: /sites/4d0b0356-1046-4359-b494-aa1187527464/token
   gateway_url: https://gateway.decapbridge.com
+
   commit_messages:
-    create: 'Added {{collection}} "{{slug}}"'
-    update: 'Updated {{collection}} "{{slug}}"'
-    delete: 'Deleted {{collection}} "{{slug}}"'
-    uploadMedia: 'Uploaded photo "{{path}}"'
-    deleteMedia: 'Deleted photo "{{path}}"'
+    create: Create {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    update: Update {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    delete: Delete {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    uploadMedia: Upload “{{path}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    deleteMedia: Delete “{{path}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    openAuthoring: Message {{message}} - {{author-name}} <{{author-login}}> via DecapBridge
+
+auth:
+  email_claim: email
+  first_name_claim: first_name
+  last_name_claim: last_name
+  avatar_url_claim: avatar_url
+
+logo_url: https://decapbridge.com/decapcms-with-bridge.svg
+
+site_url: https://imaginative-cendol-8a600c.netlify.app
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
-
-site_url: https://TODO-your-site.netlify.app
 
 collections:
   - name: "content"
