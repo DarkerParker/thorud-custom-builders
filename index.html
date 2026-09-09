@@ -46,7 +46,7 @@
 
 
 
-<div style="min-height: 100vh; display: flex; flex-direction: column;">
+<div style="min-height: 100dvh; display: flex; flex-direction: column;">
 
   <header style="position: sticky; top: 0; z-index: 20; background: oklch(0.965 0.012 85 / 0.92); backdrop-filter: blur(10px); border-bottom: 1px solid oklch(0.87 0.012 85);">
     <div style="max-width: 1180px; margin: 0 auto; padding: 12px 20px; display: flex; align-items: center; gap: 20px;">
@@ -81,15 +81,15 @@
     <!-- ══ HOME ══ -->
     <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
     <div>
-      <section style="max-width: 1180px; margin: 0 auto; padding: clamp(52px, 10vw, 92px) 20px clamp(40px, 7vw, 64px); display: flex; flex-direction: column; align-items: center; text-align: center;">
-        <svg viewBox="0 0 900 400" style="width: min(430px, 82vw); height: auto; overflow: visible; margin-bottom: 30px;" fill="oklch(0.19 0.01 70)" aria-label="Thorud Custom Builders">
+      <section style="max-width: 1180px; margin: 0 auto; padding: clamp(36px, 6vw, 64px) 20px clamp(40px, 7vw, 64px); display: flex; flex-direction: column; align-items: center; text-align: center;">
+        <svg viewBox="0 0 900 400" style="width: min(352px, 72vw); height: auto; overflow: visible; margin-bottom: 18px;" fill="oklch(0.19 0.01 70)" aria-label="Thorud Custom Builders">
           <path d="M5 190 L280 8 L670 205 L667 208 L280 27 L8 193 Z" style="animation: peakL 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) 0.05s both;" />
           <path d="M435 186 L615 99 L886 186 L883 189 L615 115 L438 189 Z" style="animation: peakR 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) 0.22s both;" />
           <path d="M243 86 L334 86 L334 96.5 L243 96.5 Z M247 96.4 L266 96.4 L268 98.3 L272 100.2 L282 102.1 L295 104 L314 105.9 L314 200 L277 200 L277 121.2 L289 121.2 L289 186.6 L301 186.6 L301 117.4 L291 115.5 L279 113.6 L271 111.7 L265 109.8 L261 107.9 L258 105.9 L255 104 L253 102.1 L251 100.2 L249 98.3 Z" style="animation: riseT 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s both; transform-box: fill-box; transform-origin: bottom center;" />
           <text x="450" y="332" textLength="880" lengthAdjust="spacingAndGlyphs" text-anchor="middle" style="font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 74px; letter-spacing: 0.02em; animation: fadeUp 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) 0.66s both;">THORUD CUSTOM BUILDERS</text>
           <path d="M8 372 C300 364 600 362 892 365 C600 372 300 373 8 378 Z" style="animation: uline 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) 0.78s both; transform-box: fill-box; transform-origin: left center;" />
         </svg>
-        <div style="width: 44px; height: 1px; background: oklch(0.8 0.012 85); margin: 34px 0 26px; animation: fadeUp 0.4s ease 0.8s both;"></div>
+        <div style="width: 44px; height: 1px; background: oklch(0.8 0.012 85); margin: 24px 0 22px; animation: fadeUp 0.4s ease 0.8s both;"></div>
         <h1 style="margin: 0; max-width: 20ch; font-family: Bitter, serif; font-size: clamp(36px, 5.6vw, 62px); line-height: 1.08; letter-spacing: -0.02em; font-weight: 600; text-wrap: pretty; animation: fadeUp 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) 0.86s both;">Outdoor living, concrete and remodels, done on time and on budget.</h1>
         <p style="margin: 22px 0 0; max-width: 52ch; font-size: clamp(16px, 1.5vw, 19px); line-height: 1.55; color: oklch(0.44 0.012 70); text-wrap: pretty; animation: fadeUp 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) 0.95s both;">A residential general contractor working across Yamhill, Washington, Marion, Clackamas and Multnomah counties. One crew, one point of contact, start to finish.</p>
         <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 34px; animation: fadeUp 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) 1.04s both;">
@@ -353,6 +353,15 @@ class Component extends DCLogic {
     window.addEventListener("resize", this._onResize);
     this._onResize();
     this.loadContent();
+    // iOS Chrome: dynamic browser controls can leave the page scrolled a few px
+    // on first paint, pushing the sticky header off-screen. Pin to top once.
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    const pin = () => { if (!location.hash && window.scrollY < 120) window.scrollTo(0, 0); };
+    pin();
+    requestAnimationFrame(pin);
+    this._pinTimers = [setTimeout(pin, 120), setTimeout(pin, 450)];
+    window.addEventListener("load", pin);
+    this._onPinLoad = pin;
   }
 
   mailtoFallback(v) {
@@ -382,6 +391,8 @@ class Component extends DCLogic {
 
   componentWillUnmount() {
     window.removeEventListener("resize", this._onResize);
+    if (this._onPinLoad) window.removeEventListener("load", this._onPinLoad);
+    (this._pinTimers || []).forEach(clearTimeout);
   }
 
   nav(page) {
