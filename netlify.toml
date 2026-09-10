@@ -1,7 +1,45 @@
 [build]
   publish = "."
 
+# /projects and /contact are rendered by the same page as /. Only those two
+# paths are rewritten — anything else still 404s, so a mistyped URL doesn't
+# answer 200 with the home page and get indexed as a duplicate.
+[[redirects]]
+  from = "/projects"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact"
+  to = "/index.html"
+  status = 200
+
+# The editor writes this file; it has to be fresh the moment a publish lands.
 [[headers]]
   for = "/content.json"
   [headers.values]
     Cache-Control = "no-cache"
+
+# Version-pinned assets that never change under the same name.
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/vendor/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"

@@ -1,9 +1,168 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+
+<!-- ────────────────────────────────────────────────────────────────────────
+     SEO. These tags live in the real document head rather than in the
+     template's helmet block, because social and search crawlers read static
+     HTML and never run the JavaScript that would move a helmet into place.
+     The runtime rewrites title / description / canonical / og:url per page
+     as you navigate.
+
+     Moving to a custom domain? Change SITE_URL in the script at the bottom of
+     this file, the absolute URLs in this head, robots.txt, sitemap.xml and
+     site_url in admin/config.yml. DEPLOY.md lists them.
+     ──────────────────────────────────────────────────────────────────────── -->
+<title>Thorud Custom Builders — Willamette Valley General Contractor</title>
+<meta name="description" content="Residential general contractor serving Oregon's Willamette Valley. Patio covers, concrete, pole buildings and remodels. Licensed and bonded, CCB# 256740.">
+<link rel="canonical" href="https://imaginative-cendol-8a600c.netlify.app/">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Thorud Custom Builders LLC">
+<meta name="geo.region" content="US-OR">
+<meta name="geo.placename" content="Willamette Valley, Oregon">
+<meta name="theme-color" content="#f7f3eb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#231e19" media="(prefers-color-scheme: dark)">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Thorud Custom Builders">
+<meta property="og:title" content="Thorud Custom Builders — Willamette Valley General Contractor">
+<meta property="og:description" content="Outdoor living, concrete, pole buildings and remodels across Yamhill, Washington, Marion, Clackamas and Multnomah counties. CCB# 256740. Free estimates.">
+<meta property="og:url" content="https://imaginative-cendol-8a600c.netlify.app/">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://imaginative-cendol-8a600c.netlify.app/images/brand/og-image.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Thorud Custom Builders — general contractor, Willamette Valley, Oregon. CCB# 256740.">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Thorud Custom Builders — Willamette Valley General Contractor">
+<meta name="twitter:description" content="Outdoor living, concrete, pole buildings and remodels across Yamhill, Washington, Marion, Clackamas and Multnomah counties. CCB# 256740. Free estimates.">
+<meta name="twitter:image" content="https://imaginative-cendol-8a600c.netlify.app/images/brand/og-image.png">
+<meta name="twitter:image:alt" content="Thorud Custom Builders — general contractor, Willamette Valley, Oregon. CCB# 256740.">
+
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<!-- Fonts are self-hosted: no fonts.googleapis.com stylesheet blocking the
+     first paint and no third-party connection to open. Only the three faces
+     used above the fold are preloaded. -->
+<link rel="preload" href="/fonts/ibm-plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/bitter-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/chakra-petch-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+
+<!-- React and the template runtime are same-origin and deferred, so nothing
+     here blocks parsing. support.js falls back to unpkg if these ever 404.
+     The empty __resources map tells it the template is already in this
+     document, so it doesn't re-download the page to recompile from source. -->
+<script>window.__resources = {};</script>
+<script defer src="/vendor/react-18.3.1.min.js"></script>
+<script defer src="/vendor/react-dom-18.3.1.min.js"></script>
+<script defer src="/support.js"></script>
+
+<style>
+  @font-face { font-family: "IBM Plex Sans"; font-style: normal; font-weight: 400; font-display: swap; src: url(/fonts/ibm-plex-sans-400.woff2) format("woff2"); }
+  @font-face { font-family: "IBM Plex Sans"; font-style: normal; font-weight: 500; font-display: swap; src: url(/fonts/ibm-plex-sans-500.woff2) format("woff2"); }
+  @font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 400; font-display: swap; src: url(/fonts/ibm-plex-mono-400.woff2) format("woff2"); }
+  @font-face { font-family: Bitter; font-style: normal; font-weight: 600; font-display: swap; src: url(/fonts/bitter-600.woff2) format("woff2"); }
+  @font-face { font-family: "Chakra Petch"; font-style: normal; font-weight: 700; font-display: swap; src: url(/fonts/chakra-petch-700.woff2) format("woff2"); }
+
+  /* The raw template is hidden here rather than by the runtime, so the markup
+     never flashes in the gap before support.js runs. */
+  x-dc { display: none !important; }
+
+  html { -webkit-text-size-adjust: 100%; }
+  html, body { margin: 0; padding: 0; background: oklch(0.965 0.012 85); }
+  body { font-family: "IBM Plex Sans", system-ui, sans-serif; color: oklch(0.19 0.01 70); -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  a { color: oklch(0.42 0.09 250); text-decoration: none; }
+  a:hover { color: oklch(0.3 0.09 250); text-decoration: underline; text-underline-offset: 3px; }
+  button { font-family: inherit; }
+  :focus-visible { outline: 2px solid oklch(0.42 0.09 250); outline-offset: 2px; }
+  img { max-width: 100%; }
+  @keyframes peakL { from { clip-path: inset(0 69% 0 31%); } to { clip-path: inset(0 0 0 0); } }
+  @keyframes peakR { from { clip-path: inset(0 32% 0 68%); } to { clip-path: inset(0 0 0 0); } }
+  @keyframes uline { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @keyframes riseT { from { transform: scaleY(0); opacity: 0; } to { transform: scaleY(1); opacity: 1; } }
+  @keyframes settle { from { letter-spacing: 0.6em; opacity: 0; } to { letter-spacing: 0.17em; opacity: 1; } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+  @keyframes wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-delay: 0ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  }
+  /* Shown only when JavaScript is unavailable. */
+  .nojs { max-width: 640px; margin: 0 auto; padding: 48px 20px; line-height: 1.6; }
+  .nojs h1 { font-family: Bitter, serif; font-size: 30px; line-height: 1.15; margin: 0 0 16px; }
+  .nojs ul { padding-left: 20px; }
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["GeneralContractor", "HomeAndConstructionBusiness"],
+      "@id": "https://imaginative-cendol-8a600c.netlify.app/#business",
+      "name": "Thorud Custom Builders LLC",
+      "alternateName": "Thorud Custom Builders",
+      "url": "https://imaginative-cendol-8a600c.netlify.app/",
+      "logo": "https://imaginative-cendol-8a600c.netlify.app/images/brand/icon-512.png",
+      "image": "https://imaginative-cendol-8a600c.netlify.app/images/brand/og-image.png",
+      "description": "Residential general contractor serving Oregon's Willamette Valley. Outdoor living and patio covers, concrete flatwork, pole buildings and shops, interior and exterior remodels, repairs and water damage work.",
+      "telephone": "+1-503-354-4833",
+      "email": "thorudandrew@gmail.com",
+      "address": { "@type": "PostalAddress", "addressRegion": "OR", "addressCountry": "US" },
+      "sameAs": ["https://www.instagram.com/thorudcustombuilders/"],
+      "identifier": {
+        "@type": "PropertyValue",
+        "name": "Oregon CCB license",
+        "value": "256740"
+      },
+      "areaServed": [
+        { "@type": "AdministrativeArea", "name": "Yamhill County, Oregon" },
+        { "@type": "AdministrativeArea", "name": "Washington County, Oregon" },
+        { "@type": "AdministrativeArea", "name": "Marion County, Oregon" },
+        { "@type": "AdministrativeArea", "name": "Clackamas County, Oregon" },
+        { "@type": "AdministrativeArea", "name": "Multnomah County, Oregon" }
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+1-503-354-4833",
+        "email": "thorudandrew@gmail.com",
+        "contactType": "customer service",
+        "areaServed": "US-OR",
+        "availableLanguage": "English"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Construction services",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Outdoor living & patio covers" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Concrete patios & flatwork" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pergolas & shade structures" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pole buildings & shops" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Interior remodels" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Exterior remodels & siding" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Repairs & water damage" } }
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://imaginative-cendol-8a600c.netlify.app/#website",
+      "url": "https://imaginative-cendol-8a600c.netlify.app/",
+      "name": "Thorud Custom Builders",
+      "inLanguage": "en-US",
+      "publisher": { "@id": "https://imaginative-cendol-8a600c.netlify.app/#business" }
+    }
+  ]
+}
+</script>
 </head>
 <body>
   <form name="estimate" netlify hidden>
@@ -13,36 +172,21 @@
     <textarea name="message"></textarea>
   </form>
   <script>window.THORUD_FORM_ENDPOINT = "/";</script>
+<noscript>
+  <div class="nojs">
+    <h1>Thorud Custom Builders</h1>
+    <p>A residential general contractor working across Yamhill, Washington, Marion, Clackamas and Multnomah
+      counties in Oregon's Willamette Valley. Outdoor living and patio covers, concrete patios and flatwork,
+      pergolas, pole buildings and shops, interior and exterior remodels, repairs and water damage work.</p>
+    <p><strong>Call or text <a href="tel:+15033544833">503-354-4833</a></strong><br />
+      <a href="mailto:thorudandrew@gmail.com">thorudandrew@gmail.com</a><br />
+      <a href="https://www.instagram.com/thorudcustombuilders/">@thorudcustombuilders</a></p>
+    <p>Thorud Custom Builders LLC &middot; CCB# 256740 &middot; Licensed, Bonded &amp; Insured &middot;
+      11 years in the trade &middot; 1-year workmanship warranty</p>
+    <p>Estimates are free. The full site needs JavaScript &mdash; call or text and we'll get right back to you.</p>
+  </div>
+</noscript>
 <x-dc>
-<helmet>
-<title>Thorud Custom Builders — General Contractor, Willamette Valley</title>
-<meta name="description" content="Residential general contractor in Oregon's Willamette Valley. Outdoor living, concrete, pole buildings and remodels. Licensed, bonded and insured. CCB# 256740. Free estimates — 503-354-4833." />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 900 220'%3E%3Cg fill='%23221f1b'%3E%3Cpath d='M5 190 L280 8 L670 205 L667 208 L280 27 L8 193 Z'/%3E%3Cpath d='M435 186 L615 99 L886 186 L883 189 L615 115 L438 189 Z'/%3E%3Cpath d='M243 86 L334 86 L334 96.5 L243 96.5 Z'/%3E%3Cpath d='M247 96.4 L266 96.4 L272 100.2 L282 102.1 L295 104 L314 105.9 L314 200 L277 200 L277 114 L267 110 L257 104 Z'/%3E%3C/g%3E%3C/svg%3E" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="Thorud Custom Builders" />
-<meta property="og:title" content="Thorud Custom Builders — General Contractor, Willamette Valley" />
-<meta property="og:description" content="Outdoor living, concrete, pole buildings and remodels across Yamhill, Washington, Marion, Clackamas and Multnomah counties. CCB# 256740. Free estimates." />
-<meta property="og:image" content="https://images.unsplash.com/photo-1654563098789-0c8342adfab1?w=1200&q=70&auto=format&fit=crop" />
-<meta name="twitter:card" content="summary_large_image" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;500;600;700&family=Chakra+Petch:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-<style>
-  html, body { margin: 0; padding: 0; background: oklch(0.965 0.012 85); }
-  body { font-family: "IBM Plex Sans", system-ui, sans-serif; color: oklch(0.19 0.01 70); -webkit-font-smoothing: antialiased; }
-  * { box-sizing: border-box; }
-  a { color: oklch(0.42 0.09 250); text-decoration: none; }
-  a:hover { color: oklch(0.3 0.09 250); text-decoration: underline; text-underline-offset: 3px; }
-  button { font-family: inherit; }
-  @keyframes peakL { from { clip-path: inset(0 69% 0 31%); } to { clip-path: inset(0 0 0 0); } }
-  @keyframes peakR { from { clip-path: inset(0 32% 0 68%); } to { clip-path: inset(0 0 0 0); } }
-  @keyframes uline { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-  @keyframes riseT { from { transform: scaleY(0); opacity: 0; } to { transform: scaleY(1); opacity: 1; } }
-  @keyframes settle { from { letter-spacing: 0.6em; opacity: 0; } to { letter-spacing: 0.17em; opacity: 1; } }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-  @keyframes wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
-</style>
-</helmet>
 
 
 
@@ -50,28 +194,28 @@
 
   <header style="position: sticky; top: 0; z-index: 20; background: oklch(0.965 0.012 85 / 0.92); backdrop-filter: blur(10px); border-bottom: 1px solid oklch(0.87 0.012 85);">
     <div style="max-width: 1180px; margin: 0 auto; padding: 12px 20px; display: flex; align-items: center; gap: 20px;">
-      <button onClick="{{ goHome }}" style="display: flex; align-items: center; gap: 10px; background: none; border: 0; padding: 0; cursor: pointer; text-align: left;">
+      <a href="/" onClick="{{ goHome }}" aria-label="Thorud Custom Builders — home" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: oklch(0.19 0.01 70);" style-hover="text-decoration: none; color: oklch(0.19 0.01 70);">
         <svg viewBox="0 0 900 220" style="width: 58px; height: 14px; overflow: visible;" fill="oklch(0.19 0.01 70)">
           <path d="M5 190 L280 8 L670 205 L667 208 L280 27 L8 193 Z" />
           <path d="M435 186 L615 99 L886 186 L883 189 L615 115 L438 189 Z" />
           <path d="M243 86 L334 86 L334 96.5 L243 96.5 Z M247 96.4 L266 96.4 L272 100.2 L282 102.1 L295 104 L314 105.9 L314 200 L277 200 L277 114 L267 110 L257 104 Z" />
         </svg>
         <span style="font-family: 'Chakra Petch', sans-serif; font-size: 12.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(0.19 0.01 70);">Thorud Custom Builders</span>
-      </button>
+      </a>
       <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
-      <nav style="margin-left: auto; display: flex; align-items: center; gap: 4px;">
-        <button onClick="{{ goHome }}" style="background: none; border: 0; cursor: pointer; padding: 8px 12px; font-size: 14px; font-weight: 500; color: oklch(0.19 0.01 70); border-radius: 2px;" style-hover="background: oklch(0.93 0.012 85);">Home</button>
-        <button onClick="{{ goProjects }}" style="background: none; border: 0; cursor: pointer; padding: 8px 12px; font-size: 14px; font-weight: 500; color: oklch(0.19 0.01 70); border-radius: 2px;" style-hover="background: oklch(0.93 0.012 85);">Projects</button>
-        <button onClick="{{ goContact }}" style="background: none; border: 0; cursor: pointer; padding: 8px 12px; font-size: 14px; font-weight: 500; color: oklch(0.19 0.01 70); border-radius: 2px;" style-hover="background: oklch(0.93 0.012 85);">Contact</button>
-        <a href="tel:5033544833" style="margin-left: 10px; padding: 10px 16px; background: oklch(0.19 0.01 70); color: oklch(0.965 0.012 85); font-family: 'IBM Plex Mono', monospace; font-size: 13px; border-radius: 2px;" style-hover="background: oklch(0.32 0.06 250); color: oklch(0.965 0.012 85); text-decoration: none;">503‑354‑4833</a>
+      <nav aria-label="Primary" style="margin-left: auto; display: flex; align-items: center; gap: 4px;">
+        <a href="/" onClick="{{ goHome }}" aria-current="{{ navHome }}" style="padding: 8px 12px; font-size: 14px; font-weight: 500; color: oklch(0.19 0.01 70); border-radius: 2px; text-decoration: none;" style-hover="background: oklch(0.93 0.012 85); color: oklch(0.19 0.01 70); text-decoration: none;">Home</a>
+        <a href="/projects" onClick="{{ goProjects }}" aria-current="{{ navProjects }}" style="padding: 8px 12px; font-size: 14px; font-weight: 500; color: oklch(0.19 0.01 70); border-radius: 2px; text-decoration: none;" style-hover="background: oklch(0.93 0.012 85); color: oklch(0.19 0.01 70); text-decoration: none;">Projects</a>
+        <a href="/contact" onClick="{{ goContact }}" aria-current="{{ navContact }}" style="padding: 8px 12px; font-size: 14px; font-weight: 500; color: oklch(0.19 0.01 70); border-radius: 2px; text-decoration: none;" style-hover="background: oklch(0.93 0.012 85); color: oklch(0.19 0.01 70); text-decoration: none;">Contact</a>
+        <a href="tel:+15033544833" style="margin-left: 10px; padding: 10px 16px; background: oklch(0.19 0.01 70); color: oklch(0.965 0.012 85); font-family: 'IBM Plex Mono', monospace; font-size: 13px; border-radius: 2px;" style-hover="background: oklch(0.32 0.06 250); color: oklch(0.965 0.012 85); text-decoration: none;">503‑354‑4833</a>
       </nav>
       </sc-if>
     </div>
     <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
-    <nav style="display: flex; border-top: 1px solid oklch(0.89 0.012 85);">
-      <button onClick="{{ goHome }}" style="flex: 1; background: none; border: 0; cursor: pointer; padding: 12px 4px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: oklch(0.28 0.012 70);">Home</button>
-      <button onClick="{{ goProjects }}" style="flex: 1; background: none; border: 0; border-left: 1px solid oklch(0.89 0.012 85); cursor: pointer; padding: 12px 4px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: oklch(0.28 0.012 70);">Projects</button>
-      <button onClick="{{ goContact }}" style="flex: 1; background: none; border: 0; border-left: 1px solid oklch(0.89 0.012 85); cursor: pointer; padding: 12px 4px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: oklch(0.28 0.012 70);">Contact</button>
+    <nav aria-label="Primary" style="display: flex; border-top: 1px solid oklch(0.89 0.012 85);">
+      <a href="/" onClick="{{ goHome }}" aria-current="{{ navHome }}" style="flex: 1; padding: 12px 4px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: oklch(0.28 0.012 70); text-align: center; text-decoration: none;" style-hover="color: oklch(0.28 0.012 70); text-decoration: none;">Home</a>
+      <a href="/projects" onClick="{{ goProjects }}" aria-current="{{ navProjects }}" style="flex: 1; padding: 12px 4px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: oklch(0.28 0.012 70); text-align: center; text-decoration: none; border-left: 1px solid oklch(0.89 0.012 85);" style-hover="color: oklch(0.28 0.012 70); text-decoration: none;">Projects</a>
+      <a href="/contact" onClick="{{ goContact }}" aria-current="{{ navContact }}" style="flex: 1; padding: 12px 4px; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: oklch(0.28 0.012 70); text-align: center; text-decoration: none; border-left: 1px solid oklch(0.89 0.012 85);" style-hover="color: oklch(0.28 0.012 70); text-decoration: none;">Contact</a>
     </nav>
     </sc-if>
   </header>
@@ -93,8 +237,8 @@
         <h1 style="margin: 0; max-width: 20ch; font-family: Bitter, serif; font-size: clamp(36px, 5.6vw, 62px); line-height: 1.08; letter-spacing: -0.02em; font-weight: 600; text-wrap: pretty; animation: fadeUp 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) 0.86s both;">Outdoor living, concrete and remodels, done on time and on budget.</h1>
         <p style="margin: 22px 0 0; max-width: 52ch; font-size: clamp(16px, 1.5vw, 19px); line-height: 1.55; color: oklch(0.44 0.012 70); text-wrap: pretty; animation: fadeUp 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) 0.95s both;">A residential general contractor working across Yamhill, Washington, Marion, Clackamas and Multnomah counties. One crew, one point of contact, start to finish.</p>
         <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 34px; animation: fadeUp 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) 1.04s both;">
-          <button onClick="{{ goContact }}" style="padding: 15px 26px; background: oklch(0.19 0.01 70); color: oklch(0.965 0.012 85); border: 0; border-radius: 2px; font-size: 15px; font-weight: 500; cursor: pointer;" style-hover="background: oklch(0.32 0.06 250);">Request an estimate</button>
-          <button onClick="{{ goProjects }}" style="padding: 15px 26px; background: none; color: oklch(0.19 0.01 70); border: 1px solid oklch(0.75 0.012 85); border-radius: 2px; font-size: 15px; font-weight: 500; cursor: pointer;" style-hover="border-color: oklch(0.19 0.01 70); background: oklch(0.94 0.012 85);">See the work</button>
+          <a href="/contact" onClick="{{ goContact }}" style="display: inline-block; padding: 15px 26px; background: oklch(0.19 0.01 70); color: oklch(0.965 0.012 85); border-radius: 2px; font-size: 15px; font-weight: 500; text-decoration: none;" style-hover="background: oklch(0.32 0.06 250); color: oklch(0.965 0.012 85); text-decoration: none;">Request an estimate</a>
+          <a href="/projects" onClick="{{ goProjects }}" style="display: inline-block; padding: 15px 26px; color: oklch(0.19 0.01 70); border: 1px solid oklch(0.75 0.012 85); border-radius: 2px; font-size: 15px; font-weight: 500; text-decoration: none;" style-hover="border-color: oklch(0.19 0.01 70); background: oklch(0.94 0.012 85); color: oklch(0.19 0.01 70); text-decoration: none;">See the work</a>
         </div>
       </section>
 
@@ -106,7 +250,7 @@
 
       <section style="max-width: 1180px; margin: 0 auto; padding: 20px 20px 0;">
         <div style="aspect-ratio: 16 / 7; width: 100%; border-radius: 3px; overflow: hidden; background: oklch(0.9 0.014 85); animation: wipe 0.6s cubic-bezier(0.3, 0.9, 0.2, 1) 1.1s both;">
-          <img src="https://images.unsplash.com/photo-1683372101362-2efc3e75650e?w=1800&q=70&auto=format&fit=crop" alt="Excavator at the start of a residential build" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+          <img src="{{ hero.img }}" srcset="{{ hero.srcset }}" sizes="(min-width: 1220px) 1180px, calc(100vw - 40px)" width="1600" height="700" alt="Excavator moving dirt at the start of a residential build" loading="lazy" decoding="async" data-src="{{ hero.fallback }}" onError="{{ onImgError }}" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
         </div>
       </section>
 
@@ -120,7 +264,7 @@
           <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column;">
             <sc-for list="{{ services }}" as="s" hint-placeholder-count="7">
               <li style="display: flex; gap: 20px; align-items: baseline; padding: 17px 0; border-top: 1px solid oklch(0.87 0.012 85);">
-                <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: oklch(0.6 0.012 70);">{{ s.n }}</span>
+                <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: oklch(0.52 0.012 70);">{{ s.n }}</span>
                 <span style="font-size: 19px; font-weight: 500; letter-spacing: -0.01em;">{{ s.name }}</span>
               </li>
             </sc-for>
@@ -132,13 +276,13 @@
         <div style="max-width: 1180px; margin: 0 auto; padding: clamp(48px, 8vw, 76px) 20px;">
           <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: baseline; justify-content: space-between; margin-bottom: 38px;">
             <h2 style="margin: 0; font-family: Bitter, serif; font-size: clamp(25px, 2.9vw, 34px); font-weight: 600; letter-spacing: -0.015em;">Recent projects</h2>
-            <button onClick="{{ goProjects }}" style="background: none; border: 1px solid oklch(0.42 0.012 70); color: oklch(0.94 0.008 85); padding: 11px 20px; border-radius: 2px; font-size: 14px; cursor: pointer;" style-hover="background: oklch(0.31 0.012 70); border-color: oklch(0.6 0.012 70);">All projects</button>
+            <a href="/projects" onClick="{{ goProjects }}" style="display: inline-block; border: 1px solid oklch(0.42 0.012 70); color: oklch(0.94 0.008 85); padding: 11px 20px; border-radius: 2px; font-size: 14px; text-decoration: none;" style-hover="background: oklch(0.31 0.012 70); border-color: oklch(0.6 0.012 70); color: oklch(0.94 0.008 85); text-decoration: none;">All projects</a>
           </div>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr)); gap: 26px;">
             <sc-for list="{{ featured }}" as="p" hint-placeholder-count="3">
               <div>
                 <div style="aspect-ratio: 4 / 3; border-radius: 3px; overflow: hidden; background: oklch(0.3 0.012 70);">
-                  <img src="{{ p.img }}" alt="{{ p.slot }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+                  <img src="{{ p.img }}" srcset="{{ p.srcset }}" sizes="{{ p.sizes }}" width="1200" height="900" alt="{{ p.alt }}" loading="lazy" decoding="async" data-src="{{ p.fallback }}" onError="{{ onImgError }}" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
                 </div>
                 <div style="font-family: Bitter, serif; font-size: 19px; font-weight: 600; margin-top: 16px; letter-spacing: -0.01em;">{{ p.title }}</div>
                 <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: oklch(0.72 0.012 70); margin-top: 6px;">{{ p.meta }}</div>
@@ -169,7 +313,7 @@
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
           <sc-for list="{{ instaTiles }}" as="i" hint-placeholder-count="6">
             <a href="{{ i.link }}" target="_blank" rel="noopener" style="aspect-ratio: 1; border-radius: 2px; overflow: hidden; background: oklch(0.9 0.014 85); display: block;">
-              <img src="{{ i.img }}" alt="Recent job site post" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+              <img src="{{ i.img }}" srcset="{{ i.srcset }}" sizes="(min-width: 1180px) 385px, 33vw" width="600" height="600" alt="{{ i.alt }}" loading="lazy" decoding="async" data-src="{{ i.fallback }}" onError="{{ onImgError }}" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
             </a>
           </sc-for>
         </div>
@@ -180,7 +324,7 @@
       <section style="border-top: 1px solid oklch(0.87 0.012 85);">
         <div style="max-width: 1180px; margin: 0 auto; padding: clamp(48px, 8vw, 76px) 20px; display: flex; flex-wrap: wrap; gap: 28px; align-items: center; justify-content: space-between;">
           <h2 style="margin: 0; font-family: Bitter, serif; font-size: clamp(25px, 3vw, 35px); line-height: 1.16; font-weight: 600; letter-spacing: -0.015em; max-width: 24ch; text-wrap: pretty;">Tell us about the project. We'll come look at it.</h2>
-          <button onClick="{{ goContact }}" style="padding: 16px 28px; background: oklch(0.19 0.01 70); color: oklch(0.965 0.012 85); border: 0; border-radius: 2px; font-size: 15px; font-weight: 500; cursor: pointer;" style-hover="background: oklch(0.32 0.06 250);">Request an estimate</button>
+          <a href="/contact" onClick="{{ goContact }}" style="display: inline-block; padding: 16px 28px; background: oklch(0.19 0.01 70); color: oklch(0.965 0.012 85); border-radius: 2px; font-size: 15px; font-weight: 500; text-decoration: none;" style-hover="background: oklch(0.32 0.06 250); color: oklch(0.965 0.012 85); text-decoration: none;">Request an estimate</a>
         </div>
       </section>
     </div>
@@ -193,14 +337,14 @@
       <h1 style="margin: 0; font-family: Bitter, serif; font-size: clamp(32px, 4.6vw, 52px); line-height: 1.1; letter-spacing: -0.02em; font-weight: 600; max-width: 22ch; text-wrap: pretty;">Every job on this page is one we finished.</h1>
       <div style="display: flex; flex-wrap: wrap; gap: 8px; margin: 40px 0 34px; border-top: 1px solid oklch(0.87 0.012 85); padding-top: 24px;">
         <sc-for list="{{ filterChips }}" as="c" hint-placeholder-count="6">
-          <button onClick="{{ c.onClick }}" style="padding: 9px 16px; border-radius: 100px; font-size: 13.5px; cursor: pointer; background: {{ c.bg }}; color: {{ c.fg }}; border: 1px solid {{ c.bd }};">{{ c.label }}</button>
+          <button type="button" onClick="{{ c.onClick }}" aria-pressed="{{ c.pressed }}" style="padding: 9px 16px; border-radius: 100px; font-size: 13.5px; cursor: pointer; background: {{ c.bg }}; color: {{ c.fg }}; border: 1px solid {{ c.bd }};">{{ c.label }}</button>
         </sc-for>
       </div>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 34px 26px;">
         <sc-for list="{{ visibleProjects }}" as="p" hint-placeholder-count="9">
           <div>
             <div style="aspect-ratio: 4 / 3; border-radius: 3px; overflow: hidden; background: oklch(0.9 0.014 85);">
-              <img src="{{ p.img }}" alt="{{ p.slot }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+              <img src="{{ p.img }}" srcset="{{ p.srcset }}" sizes="{{ p.sizes }}" width="1200" height="900" alt="{{ p.alt }}" loading="lazy" decoding="async" data-src="{{ p.fallback }}" onError="{{ onImgError }}" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
             </div>
             <div style="font-family: Bitter, serif; font-size: 20px; font-weight: 600; margin-top: 16px; letter-spacing: -0.01em;">{{ p.title }}</div>
             <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: oklch(0.5 0.012 70); margin-top: 6px;">{{ p.meta }}</div>
@@ -210,7 +354,7 @@
       </div>
       <div style="margin-top: 72px; border-top: 1px solid oklch(0.87 0.012 85); padding-top: 34px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between;">
         <p style="margin: 0; font-size: 18px; color: oklch(0.42 0.012 70); max-width: 40ch; text-wrap: pretty;">Want to walk one of these in person? We can usually arrange it.</p>
-        <button onClick="{{ goContact }}" style="padding: 15px 26px; background: oklch(0.19 0.01 70); color: oklch(0.965 0.012 85); border: 0; border-radius: 2px; font-size: 15px; font-weight: 500; cursor: pointer;" style-hover="background: oklch(0.32 0.06 250);">Get in touch</button>
+        <a href="/contact" onClick="{{ goContact }}" style="display: inline-block; padding: 15px 26px; background: oklch(0.19 0.01 70); color: oklch(0.965 0.012 85); border-radius: 2px; font-size: 15px; font-weight: 500; text-decoration: none;" style-hover="background: oklch(0.32 0.06 250); color: oklch(0.965 0.012 85); text-decoration: none;">Get in touch</a>
       </div>
     </div>
     </sc-if>
@@ -226,7 +370,7 @@
           <dl style="margin: 40px 0 0; display: flex; flex-direction: column;">
             <sc-for list="{{ contactRows }}" as="r" hint-placeholder-count="5">
               <div style="display: flex; gap: 20px; padding: 15px 0; border-top: 1px solid oklch(0.87 0.012 85);">
-                <dt style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: oklch(0.55 0.012 70); min-width: 92px;">{{ r.k }}</dt>
+                <dt style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: oklch(0.52 0.012 70); min-width: 92px;">{{ r.k }}</dt>
                 <dd style="margin: 0; font-size: 16px;">{{ r.v }}</dd>
               </div>
             </sc-for>
@@ -252,7 +396,7 @@
             <textarea rows="5" name="message" required="required" style="font-family: inherit; font-size: 16px; padding: 13px 14px; border: 1px solid oklch(0.82 0.012 85); border-radius: 2px; background: oklch(0.985 0.008 85); color: oklch(0.19 0.01 70); resize: vertical;" style-focus="outline: none; border-color: oklch(0.42 0.09 250);"></textarea>
           </label>
           <button type="submit" style="padding: 16px; background: oklch(0.19 0.01 70); color: oklch(0.965 0.012 85); border: 0; border-radius: 2px; font-size: 15px; font-weight: 500; cursor: pointer;" style-hover="background: oklch(0.32 0.06 250);">{{ sendLabel }}</button>
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: oklch(0.55 0.012 70); text-align: center;">No obligation. We read every one.</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: oklch(0.52 0.012 70); text-align: center;">No obligation. We read every one.</div>
         </form>
         </sc-if>
 
@@ -274,8 +418,8 @@
   <div>
     <div style="height: 62px;"></div>
     <div style="position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; display: flex; gap: 1px; background: oklch(0.19 0.01 70); box-shadow: 0 -1px 14px oklch(0.19 0.01 70 / 0.18); padding-bottom: env(safe-area-inset-bottom);">
-      <a href="tel:5033544833" style="flex: 1; padding: 19px 8px; text-align: center; color: oklch(0.965 0.012 85); font-family: 'IBM Plex Mono', monospace; font-size: 14px;" style-hover="text-decoration: none; color: oklch(0.965 0.012 85);">Call now</a>
-      <button onClick="{{ goContact }}" style="flex: 1; padding: 19px 8px; background: oklch(0.34 0.07 250); color: oklch(0.97 0.012 85); border: 0; font-size: 14.5px; font-weight: 500; cursor: pointer;">Request estimate</button>
+      <a href="tel:+15033544833" style="flex: 1; padding: 19px 8px; text-align: center; color: oklch(0.965 0.012 85); font-family: 'IBM Plex Mono', monospace; font-size: 14px;" style-hover="text-decoration: none; color: oklch(0.965 0.012 85);">Call now</a>
+      <a href="/contact" onClick="{{ goContact }}" style="flex: 1; padding: 19px 8px; text-align: center; background: oklch(0.34 0.07 250); color: oklch(0.97 0.012 85); font-size: 14.5px; font-weight: 500; text-decoration: none;" style-hover="color: oklch(0.97 0.012 85); text-decoration: none;">Request estimate</a>
     </div>
   </div>
   </sc-if>
@@ -294,9 +438,15 @@
         <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: oklch(0.62 0.012 70); margin-bottom: 12px;">Service area</div>
         Yamhill · Washington · Marion<br />Clackamas · Multnomah counties
       </div>
+      <nav aria-label="Footer" style="font-size: 15px; line-height: 1.95;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: oklch(0.62 0.012 70); margin-bottom: 12px;">Pages</div>
+        <a href="/" onClick="{{ goHome }}" style="color: oklch(0.86 0.008 85);">Home</a><br />
+        <a href="/projects" onClick="{{ goProjects }}" style="color: oklch(0.86 0.008 85);">Projects</a><br />
+        <a href="/contact" onClick="{{ goContact }}" style="color: oklch(0.86 0.008 85);">Contact</a>
+      </nav>
       <div style="font-size: 15px; line-height: 1.95;">
         <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: oklch(0.62 0.012 70); margin-bottom: 12px;">Get in touch</div>
-        <a href="tel:5033544833" style="color: oklch(0.86 0.008 85);">503‑354‑4833</a><br />
+        <a href="tel:+15033544833" style="color: oklch(0.86 0.008 85);">503‑354‑4833</a><br />
         <a href="mailto:thorudandrew@gmail.com" style="color: oklch(0.86 0.008 85);">thorudandrew@gmail.com</a><br />
         <a href="https://www.instagram.com/thorudcustombuilders/" style="color: oklch(0.86 0.008 85);">@thorudcustombuilders</a>
       </div>
@@ -309,20 +459,119 @@
 
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;showInstagram&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;}}">
-const U = (id, w) => "https://images.unsplash.com/photo-" + id + "?w=" + (w || 900) + "&q=70&auto=format&fit=crop";
+// ─────────────────────────────────────────────────────────────────────────────
+// Moving to a custom domain? Change SITE_URL here, the absolute URLs in the
+// document head above, robots.txt, sitemap.xml and site_url in admin/config.yml.
+// ─────────────────────────────────────────────────────────────────────────────
+const SITE_URL = "https://imaginative-cendol-8a600c.netlify.app";
+
+// Each view has its own URL, title and description so search engines index
+// three pages instead of one, and so a shared link says what it points at.
+const ROUTES = {
+  home: {
+    path: "/",
+    crumb: "Home",
+    title: "Thorud Custom Builders — Willamette Valley General Contractor",
+    desc: "Residential general contractor serving Oregon's Willamette Valley. Patio covers, concrete, pole buildings and remodels. Licensed and bonded, CCB# 256740."
+  },
+  projects: {
+    path: "/projects",
+    crumb: "Projects",
+    title: "Recent Projects — Thorud Custom Builders",
+    desc: "Patio covers, stamped concrete, shop and barn builds, deck rebuilds and water damage repairs finished across Oregon's Willamette Valley."
+  },
+  contact: {
+    path: "/contact",
+    crumb: "Contact",
+    title: "Request a Free Estimate — Thorud Custom Builders",
+    desc: "Call or text 503-354-4833, or send a message. Free estimates on outdoor living, concrete, pole buildings and remodels in Oregon's Willamette Valley."
+  }
+};
+
+function routeFromPath(pathname) {
+  const p = String(pathname || "/").replace(/\/+$/, "").toLowerCase();
+  if (p === "/projects") return "projects";
+  if (p === "/contact") return "contact";
+  return "home";
+}
+
+// ── Images ───────────────────────────────────────────────────────────────────
+// Widths every photo is offered at, and the layout rule that tells the browser
+// which one to pick. Cards are ~376px wide at the 1180px container, one column
+// below 760px.
+const IMG_WIDTHS = [400, 600, 900, 1200, 1600];
+const CARD_SIZES = "(min-width: 1180px) 376px, (min-width: 760px) 33vw, calc(100vw - 40px)";
+
+/** One resized, re-encoded URL for `url` at width `w`.
+ *
+ *  Unsplash stock photos are resized by Unsplash itself — its bandwidth, not
+ *  Netlify's, and `auto=format` serves AVIF or WebP wherever the browser takes
+ *  it. Photos uploaded through /admin land in /images/uploads at full
+ *  phone-camera size (3-5MB), so those run through Netlify's Image CDN, which
+ *  resizes them and re-encodes to WebP. Anything else — the Instagram feed —
+ *  is served as-is, since we can't transform someone else's CDN. */
+function optimized(url, w) {
+  if (!url) return "";
+  if (url.indexOf("https://images.unsplash.com/") === 0) {
+    return url.split("?")[0] + "?auto=format&fit=crop&q=68&w=" + w;
+  }
+  if (url.charAt(0) === "/") {
+    return "/.netlify/images?url=" + encodeURIComponent(url) + "&w=" + w + "&fm=webp&q=72";
+  }
+  return url;
+}
+
+function canOptimize(url) {
+  return !!url && (url.indexOf("https://images.unsplash.com/") === 0 || url.charAt(0) === "/");
+}
+
+function srcsetFor(url, widths) {
+  if (!canOptimize(url)) return undefined;
+  return (widths || IMG_WIDTHS).map(w => optimized(url, w) + " " + w + "w").join(", ");
+}
+
+/** Adds src / srcset / sizes to anything carrying a raw `src` photo URL. */
+function withImage(item, widths, sizes) {
+  const raw = item.src || "";
+  return Object.assign({}, item, {
+    img: optimized(raw, 900),
+    // Only uploads are worth retrying untransformed: if the image CDN is
+    // unavailable the file itself still is. An Unsplash "original" is the
+    // full-resolution file on the same CDN that just failed.
+    fallback: raw.charAt(0) === "/" ? raw : undefined,
+    srcset: srcsetFor(raw, widths),
+    sizes: sizes || CARD_SIZES
+  });
+}
+
+const U = (id) => "https://images.unsplash.com/photo-" + id;
 
 const DEFAULT_PROJECTS = [
-  { id: 1, cat: "Outdoor living", title: "Timber framed patio cover", meta: "Patio cover · Gaston, OR · 2025", img: U("1654563098789-0c8342adfab1"), slot: "the finished patio cover", blurb: "An 18'x20' open rafter patio cover with exposed 2x6 T&G decking, all tied together with a standing seam metal roof." },
-  { id: 2, cat: "Shops & pole buildings", title: "Sherwood barn build", meta: "Barn to shop · Sherwood, OR · 2026", img: U("1601058268499-e52658b8bb88"), slot: "framing the shop walls", blurb: "An old horse barn turned into a modern shop with an attached 20x30 fully finished loft flex space. New slab with perimeter footings, new power, water and plumbing, framed and insulated throughout, then finished with LVP flooring, wall coverings, paint and lighting. Three new overhead doors, exterior lighting, new doors and windows, fresh paint." },
-  { id: 3, cat: "Concrete", title: "Stamped patio", meta: "Concrete · Newberg, OR · 2024", img: U("1786269691602-519fdaa112ea"), slot: "forms set and the mixer running", blurb: "All of it, from site prep excavation to the final seal. 600 sq ft poured with a stained and stamped texture finish, fully sealed for years of protection." },
-  { id: 4, cat: "Remodels & repairs", title: "Two rotted decks, reframed and rebuilt", meta: "Deck rebuild · Milwaukie, OR", img: U("1587582423116-ec07293f0395"), slot: "framing the new deck", blurb: "Both decks taken down to nothing and rebuilt, plus soft siding patched on a 1940s cottage." },
-  { id: 5, cat: "Remodels & repairs", title: "Finished basement saved after water intrusion", meta: "Water damage · Forest Grove, OR", img: U("1618832515490-e181c4794a45"), slot: "the basement mid-repair", blurb: "Severe water intrusion in a finished basement. Dried out, repaired and put back together." }
-];
+  { id: 1, cat: "Outdoor living", title: "Timber framed patio cover", meta: "Patio cover · Gaston, OR · 2025", src: U("1654563098789-0c8342adfab1"), alt: "Timber framed patio cover with exposed rafters and a standing seam metal roof in Gaston, OR", blurb: "An 18'x20' open rafter patio cover with exposed 2x6 T&G decking, all tied together with a standing seam metal roof." },
+  { id: 2, cat: "Shops & pole buildings", title: "Sherwood barn build", meta: "Barn to shop · Sherwood, OR · 2026", src: U("1601058268499-e52658b8bb88"), alt: "Framing the walls of a barn-to-shop conversion in Sherwood, OR", blurb: "An old horse barn turned into a modern shop with an attached 20x30 fully finished loft flex space. New slab with perimeter footings, new power, water and plumbing, framed and insulated throughout, then finished with LVP flooring, wall coverings, paint and lighting. Three new overhead doors, exterior lighting, new doors and windows, fresh paint." },
+  { id: 3, cat: "Concrete", title: "Stamped patio", meta: "Concrete · Newberg, OR · 2024", src: U("1786269691602-519fdaa112ea"), alt: "Forms set and concrete going down for a stamped patio in Newberg, OR", blurb: "All of it, from site prep excavation to the final seal. 600 sq ft poured with a stained and stamped texture finish, fully sealed for years of protection." },
+  { id: 4, cat: "Remodels & repairs", title: "Two rotted decks, reframed and rebuilt", meta: "Deck rebuild · Milwaukie, OR", src: U("1587582423116-ec07293f0395"), alt: "Newly framed deck replacing rotted decking on a 1940s cottage in Milwaukie, OR", blurb: "Both decks taken down to nothing and rebuilt, plus soft siding patched on a 1940s cottage." },
+  { id: 5, cat: "Remodels & repairs", title: "Finished basement saved after water intrusion", meta: "Water damage · Forest Grove, OR", src: U("1618832515490-e181c4794a45"), alt: "Finished basement mid-repair after severe water intrusion in Forest Grove, OR", blurb: "Severe water intrusion in a finished basement. Dried out, repaired and put back together." }
+].map(p => withImage(p));
+
+const INSTA_WIDTHS = [300, 500, 700, 900];
+const INSTA_SIZES = "(min-width: 1180px) 385px, 33vw";
 
 const DEFAULT_INSTA = [
   "1544164560-adac3045edb2", "1611021061271-d13576f6bc34", "1611021061285-16c871740efa",
   "1687422810663-c316494f725a", "1552155235-a68a6c02d512", "1649083048269-8bfb755e7b87"
-].map((id, i) => ({ id: i, img: U(id, 500), link: "https://www.instagram.com/thorudcustombuilders/" }));
+].map((id, i) => withImage({
+  id: i,
+  src: U(id),
+  alt: "Job site photo from the Thorud Custom Builders Instagram feed",
+  link: "https://www.instagram.com/thorudcustombuilders/"
+}, INSTA_WIDTHS, INSTA_SIZES));
+
+const HERO = withImage(
+  { src: U("1683372101362-2efc3e75650e") },
+  [600, 900, 1200, 1600, 1920],
+  "(min-width: 1220px) 1180px, calc(100vw - 40px)"
+);
 
 const DEFAULT_TESTIMONIALS = [
   { quote: "The guys came in and completely reframed and rebuilt 2 rotted decks and patched the soft siding on our 1940's cottage. It looks amazing!", who: "John L. — Milwaukie, OR" },
@@ -334,25 +583,84 @@ const CAT_ORDER = ["Outdoor living", "Concrete", "Shops & pole buildings", "Remo
 
 // content.json shape -> what the template reads
 function normalizeProject(p, i) {
-  return {
+  const title = p.title || "";
+  const location = p.location || "";
+  return withImage({
     id: i,
     cat: p.category || "",
-    title: p.title || "",
-    meta: [p.category, p.location, p.year].filter(Boolean).join(" · "),
-    img: p.image || "",
-    slot: p.title || "",
+    title: title,
+    meta: [p.category, location, p.year].filter(Boolean).join(" · "),
+    src: p.image || "",
+    alt: title + (location ? " in " + location : ""),
     blurb: p.blurb || ""
+  });
+}
+
+// ── Document head ────────────────────────────────────────────────────────────
+function setMeta(attr, key, value) {
+  let el = document.head.querySelector("meta[" + attr + '="' + key + '"]');
+  if (!el) {
+    el = document.createElement("meta");
+    el.setAttribute(attr, key);
+    document.head.appendChild(el);
+  }
+  el.setAttribute("content", value);
+}
+
+/** Per-page WebPage + BreadcrumbList, alongside the business/site graph that
+ *  is baked into the document head. */
+function setPageSchema(page, route, url) {
+  const crumbs = [{ "@type": "ListItem", position: 1, name: "Home", item: SITE_URL + "/" }];
+  if (page !== "home") crumbs.push({ "@type": "ListItem", position: 2, name: route.crumb, item: url });
+  const doc = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": url + "#webpage",
+        url: url,
+        name: route.title,
+        description: route.desc,
+        inLanguage: "en-US",
+        isPartOf: { "@id": SITE_URL + "/#website" },
+        about: { "@id": SITE_URL + "/#business" },
+        primaryImageOfPage: SITE_URL + "/images/brand/og-image.png",
+        breadcrumb: { "@id": url + "#breadcrumb" }
+      },
+      { "@type": "BreadcrumbList", "@id": url + "#breadcrumb", itemListElement: crumbs }
+    ]
   };
+  let el = document.getElementById("ld-page");
+  if (!el) {
+    el = document.createElement("script");
+    el.type = "application/ld+json";
+    el.id = "ld-page";
+    document.head.appendChild(el);
+  }
+  el.textContent = JSON.stringify(doc);
 }
 
 class Component extends DCLogic {
-  state = { page: "home", filter: "All", sent: false, content: null, insta: null, vw: typeof window !== "undefined" ? window.innerWidth : 1200 };
+  state = {
+    page: typeof location !== "undefined" ? routeFromPath(location.pathname) : "home",
+    filter: "All",
+    sent: false,
+    content: null,
+    insta: null,
+    vw: typeof window !== "undefined" ? window.innerWidth : 1200
+  };
 
   componentDidMount() {
     this._onResize = () => this.setState({ vw: window.innerWidth });
     window.addEventListener("resize", this._onResize);
     this._onResize();
     this.loadContent();
+
+    // Back/forward between /, /projects and /contact.
+    this._onPop = () => this.nav(routeFromPath(location.pathname), false);
+    window.addEventListener("popstate", this._onPop);
+    this.syncHead(this.state.page);
+
     // iOS Chrome: dynamic browser controls can leave the page scrolled a few px
     // on first paint, pushing the sticky header off-screen. Pin to top once.
     if ("scrollRestoration" in history) history.scrollRestoration = "manual";
@@ -391,13 +699,45 @@ class Component extends DCLogic {
 
   componentWillUnmount() {
     window.removeEventListener("resize", this._onResize);
+    window.removeEventListener("popstate", this._onPop);
     if (this._onPinLoad) window.removeEventListener("load", this._onPinLoad);
     (this._pinTimers || []).forEach(clearTimeout);
   }
 
-  nav(page) {
+  syncHead(page) {
+    const route = ROUTES[page] || ROUTES.home;
+    const url = SITE_URL + route.path;
+    document.title = route.title;
+    setMeta("name", "description", route.desc);
+    setMeta("property", "og:title", route.title);
+    setMeta("property", "og:description", route.desc);
+    setMeta("property", "og:url", url);
+    setMeta("name", "twitter:title", route.title);
+    setMeta("name", "twitter:description", route.desc);
+    const canonical = document.head.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.setAttribute("href", url);
+    setPageSchema(page, route, url);
+  }
+
+  nav(page, push) {
+    const route = ROUTES[page] || ROUTES.home;
+    if (push !== false && history.pushState && location.pathname !== route.path) {
+      history.pushState({ page: page }, "", route.path);
+    }
     this.setState({ page: page });
+    this.syncHead(page);
     if (typeof window !== "undefined") window.scrollTo({ top: 0 });
+  }
+
+  /** Click handler for an <a> that navigates in-page, while leaving
+   *  cmd/ctrl/middle-click to the browser so links still open in new tabs. */
+  link(page) {
+    return (e) => {
+      if (e && (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey ||
+                (e.button !== undefined && e.button !== 0))) return;
+      if (e && e.preventDefault) e.preventDefault();
+      this.nav(page);
+    };
   }
 
   renderVals() {
@@ -419,19 +759,35 @@ class Component extends DCLogic {
     );
 
     const insta = this.state.insta
-      ? this.state.insta.slice(0, 6).map((post, i) => ({
+      ? this.state.insta.slice(0, 6).map((post, i) => withImage({
           id: i,
-          img: (post.sizes && post.sizes.medium && post.sizes.medium.mediaUrl) || post.mediaUrl || post.thumbnailUrl || "",
+          src: (post.sizes && post.sizes.medium && post.sizes.medium.mediaUrl) || post.mediaUrl || post.thumbnailUrl || "",
+          alt: (post.altText || post.caption || "").replace(/\s+/g, " ").trim().slice(0, 120) ||
+            "Job site photo from the Thorud Custom Builders Instagram feed",
           link: post.permalink || "https://www.instagram.com/thorudcustombuilders/"
-        }))
+        }, INSTA_WIDTHS, INSTA_SIZES))
       : DEFAULT_INSTA;
+
     return {
       isHome: p === "home",
       isProjects: p === "projects",
       isContact: p === "contact",
-      goHome: () => this.nav("home"),
-      goProjects: () => this.nav("projects"),
-      goContact: () => this.nav("contact"),
+      goHome: this.link("home"),
+      goProjects: this.link("projects"),
+      goContact: this.link("contact"),
+      navHome: p === "home" ? "page" : undefined,
+      navProjects: p === "projects" ? "page" : undefined,
+      navContact: p === "contact" ? "page" : undefined,
+      hero: HERO,
+      // An uploaded photo whose transform fails falls back to the file itself,
+      // so an unavailable image CDN degrades to a big image, never to a gap.
+      onImgError: (e) => {
+        const el = e && e.target;
+        const orig = el && el.getAttribute("data-src");
+        if (!el || !orig || el.getAttribute("src") === orig) return;
+        el.removeAttribute("srcset");
+        el.setAttribute("src", orig);
+      },
       showInstagram: this.props.showInstagram ?? true,
       services: [
         "Outdoor living & patio covers", "Concrete patios & flatwork", "Pergolas & shade structures",
@@ -443,6 +799,7 @@ class Component extends DCLogic {
       filterChips: cats.map(cat => ({
         label: cat,
         onClick: () => this.setState({ filter: cat }),
+        pressed: f === cat ? "true" : "false",
         bg: f === cat ? "oklch(0.19 0.01 70)" : "transparent",
         fg: f === cat ? "oklch(0.965 0.012 85)" : "oklch(0.32 0.012 70)",
         bd: f === cat ? "oklch(0.19 0.01 70)" : "oklch(0.82 0.012 85)"

@@ -11,7 +11,8 @@ Scroll to **Projects**, tap **Add project**, fill in:
 - **Job name** — short. "Timber framed patio cover", not "Beautiful custom outdoor living space"
 - **Type of work** — pick one. This is what the filter buttons on the Projects page use
 - **Town**, **Year**
-- **Photo** — tap, upload straight from your camera roll. Landscape shots work best
+- **Photo** — tap, upload straight from your camera roll. Landscape shots work best.
+  Don't worry about the file size; the site shrinks photos for you automatically
 - **What the job was** — a sentence or two. What you actually did. Specifics sell better
   than adjectives: "new slab with perimeter footings, ran new power and water" beats
   "quality craftsmanship"
