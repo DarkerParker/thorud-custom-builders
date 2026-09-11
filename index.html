@@ -344,8 +344,20 @@
         <sc-for list="{{ visibleProjects }}" as="p" hint-placeholder-count="9">
           <div>
             <div style="aspect-ratio: 4 / 3; border-radius: 3px; overflow: hidden; background: oklch(0.9 0.014 85);">
-              <img src="{{ p.img }}" srcset="{{ p.srcset }}" sizes="{{ p.sizes }}" width="1200" height="900" alt="{{ p.alt }}" loading="lazy" decoding="async" data-src="{{ p.fallback }}" onError="{{ onImgError }}" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+              <img src="{{ p.shot.img }}" srcset="{{ p.shot.srcset }}" sizes="{{ p.sizes }}" width="1200" height="900" alt="{{ p.shot.alt }}" loading="lazy" decoding="async" data-src="{{ p.shot.fallback }}" onError="{{ onImgError }}" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
             </div>
+            <sc-if value="{{ p.hasGallery }}" hint-placeholder-val="{{ false }}">
+            <div role="group" aria-label="{{ p.galleryLabel }}" style="display: flex; gap: 6px; margin-top: 6px;">
+              <sc-for list="{{ p.thumbs }}" as="t" hint-placeholder-count="4">
+                <button type="button" onClick="{{ t.onClick }}" aria-pressed="{{ t.selected }}" aria-label="{{ t.label }}" style="flex: 1; aspect-ratio: 4 / 3; padding: 0; border: 0; border-radius: 2px; overflow: hidden; cursor: pointer; background: oklch(0.9 0.014 85); opacity: {{ t.opacity }}; outline: {{ t.ring }}; outline-offset: -2px;">
+                  <img src="{{ t.img }}" srcset="{{ t.srcset }}" sizes="96px" width="400" height="300" alt="" loading="lazy" decoding="async" data-src="{{ t.fallback }}" onError="{{ onImgError }}" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+                </button>
+              </sc-for>
+            </div>
+            </sc-if>
+            <sc-if value="{{ p.hasCaption }}" hint-placeholder-val="{{ false }}">
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; line-height: 1.55; color: oklch(0.5 0.012 70); margin-top: 10px; text-wrap: pretty;">{{ p.shot.caption }}</div>
+            </sc-if>
             <div style="font-family: Bitter, serif; font-size: 20px; font-weight: 600; margin-top: 16px; letter-spacing: -0.01em;">{{ p.title }}</div>
             <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: oklch(0.5 0.012 70); margin-top: 6px;">{{ p.meta }}</div>
             <p style="margin: 12px 0 0; font-size: 15.5px; line-height: 1.55; color: oklch(0.42 0.012 70); text-wrap: pretty;">{{ p.blurb }}</p>
@@ -552,7 +564,12 @@ const DEFAULT_PROJECTS = [
   { id: 3, cat: "Concrete", title: "Stamped patio", meta: "Concrete · Newberg, OR · 2024", src: U("1786269691602-519fdaa112ea"), alt: "Forms set and concrete going down for a stamped patio in Newberg, OR", blurb: "All of it, from site prep excavation to the final seal. 600 sq ft poured with a stained and stamped texture finish, fully sealed for years of protection." },
   { id: 4, cat: "Remodels & repairs", title: "Two rotted decks, reframed and rebuilt", meta: "Deck rebuild · Milwaukie, OR", src: U("1587582423116-ec07293f0395"), alt: "Newly framed deck replacing rotted decking on a 1940s cottage in Milwaukie, OR", blurb: "Both decks taken down to nothing and rebuilt, plus soft siding patched on a 1940s cottage." },
   { id: 5, cat: "Remodels & repairs", title: "Finished basement saved after water intrusion", meta: "Water damage · Forest Grove, OR", src: U("1618832515490-e181c4794a45"), alt: "Finished basement mid-repair after severe water intrusion in Forest Grove, OR", blurb: "Severe water intrusion in a finished basement. Dried out, repaired and put back together." }
-].map(p => withImage(p));
+].map(p => withImage(Object.assign(p, {
+  photos: photosFor(p, { src: p.src, caption: "" }, null)
+})));
+
+// Gallery thumbnails render ~90px wide, so they get their own small set.
+const THUMB_WIDTHS = [200, 300, 400];
 
 const INSTA_WIDTHS = [300, 500, 700, 900];
 const INSTA_SIZES = "(min-width: 1180px) 385px, 33vw";
@@ -581,19 +598,40 @@ const DEFAULT_TESTIMONIALS = [
 
 const CAT_ORDER = ["Outdoor living", "Concrete", "Shops & pole buildings", "Remodels & repairs"];
 
+/** The cover photo followed by any gallery photos, each decorated for
+ *  responsive loading. A caption doubles as the photo's alt text when one is
+ *  written; otherwise every shot falls back to naming the job and the town. */
+function photosFor(project, cover, gallery) {
+  const fallbackAlt = project.title + (project.location ? " in " + project.location : "");
+  const raw = [{ src: cover.src, caption: cover.caption || "" }].concat(
+    (Array.isArray(gallery) ? gallery : [])
+      .filter(g => g && g.image)
+      .map(g => ({ src: g.image, caption: g.caption || "" }))
+  );
+  return raw.map(ph => withImage({
+    src: ph.src,
+    caption: ph.caption,
+    alt: ph.caption || fallbackAlt
+  }));
+}
+
 // content.json shape -> what the template reads
 function normalizeProject(p, i) {
   const title = p.title || "";
   const location = p.location || "";
-  return withImage({
+  const base = {
     id: i,
     cat: p.category || "",
     title: title,
+    location: location,
     meta: [p.category, location, p.year].filter(Boolean).join(" · "),
     src: p.image || "",
     alt: title + (location ? " in " + location : ""),
     blurb: p.blurb || ""
-  });
+  };
+  return withImage(Object.assign(base, {
+    photos: photosFor(base, { src: base.src, caption: p.caption }, p.gallery)
+  }));
 }
 
 // ── Document head ────────────────────────────────────────────────────────────
@@ -729,6 +767,14 @@ class Component extends DCLogic {
     if (typeof window !== "undefined") window.scrollTo({ top: 0 });
   }
 
+  /** Which photo of a multi-photo project is showing large. Keyed by project
+   *  so opening one gallery doesn't reset another. */
+  pickShot(id, index) {
+    const shot = Object.assign({}, this.state.shot || {});
+    shot[id] = index;
+    this.setState({ shot: shot });
+  }
+
   /** Click handler for an <a> that navigates in-page, while leaving
    *  cmd/ctrl/middle-click to the browser so links still open in new tabs. */
   link(page) {
@@ -795,7 +841,28 @@ class Component extends DCLogic {
         "Repairs & water damage"
       ].map((name, i) => ({ n: String(i + 1).padStart(2, "0"), name: name })),
       featured: projects.slice(0, 3),
-      visibleProjects: f === "All" ? projects : projects.filter(x => x.cat === f),
+      visibleProjects: (f === "All" ? projects : projects.filter(x => x.cat === f))
+        .map(project => {
+          const photos = project.photos && project.photos.length
+            ? project.photos : [project];
+          const i = Math.min(Number((this.state.shot || {})[project.id]) || 0, photos.length - 1);
+          const shot = photos[i];
+          return Object.assign({}, project, {
+            shot: shot,
+            hasGallery: photos.length > 1,
+            hasCaption: !!shot.caption,
+            galleryLabel: "More photos of " + project.title,
+            thumbs: photos.map((ph, n) => Object.assign({}, ph, {
+              img: optimized(ph.src, 300),
+              srcset: srcsetFor(ph.src, THUMB_WIDTHS),
+              selected: n === i ? "true" : "false",
+              opacity: n === i ? "1" : "0.55",
+              ring: n === i ? "2px solid oklch(0.19 0.01 70)" : "none",
+              label: "Photo " + (n + 1) + " of " + photos.length + ", " + project.title,
+              onClick: () => this.pickShot(project.id, n)
+            }))
+          });
+        }),
       filterChips: cats.map(cat => ({
         label: cat,
         onClick: () => this.setState({ filter: cat }),

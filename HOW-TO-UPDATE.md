@@ -11,8 +11,10 @@ Scroll to **Projects**, tap **Add project**, fill in:
 - **Job name** — short. "Timber framed patio cover", not "Beautiful custom outdoor living space"
 - **Type of work** — pick one. This is what the filter buttons on the Projects page use
 - **Town**, **Year**
-- **Photo** — tap, upload straight from your camera roll. Landscape shots work best.
+- **Main photo** — tap, upload straight from your camera roll. Landscape shots work best.
   Don't worry about the file size; the site shrinks photos for you automatically
+- **Caption for the main photo** — optional, one short line about what's in the shot
+- **More photos** — optional. Add as many as you like; see below
 - **What the job was** — a sentence or two. What you actually did. Specifics sell better
   than adjectives: "new slab with perimeter footings, ran new power and water" beats
   "quality craftsmanship"
@@ -27,6 +29,21 @@ it to the top of the list.
 Same page, scroll to **Reviews**. Paste what they said, then who said it — first name,
 last initial, town. If it came in as a text message, paste it word for word. Don't clean
 it up.
+
+## Add more photos to a job
+
+Projects → tap the job → **More photos** → **Add photo**. They show up as a row of small
+thumbnails under the main photo on the Projects page; tap one and it fills the frame.
+
+The main photo is the one that shows on the cards, so make that your best shot.
+
+Four or five per job is plenty. A tight set of good ones beats every photo you took —
+people judge the work by the weakest picture in the row.
+
+**Captions** are optional but worth writing. One plain line about what's in the shot:
+"the old trusses, cleaned up and left in place" tells people more than the photo does on
+its own. They're also what a blind visitor's screen reader reads out, and what Google
+reads to understand the picture.
 
 ## Change a photo
 

@@ -44,8 +44,9 @@ pins), and support.js still falls back to unpkg if `vendor/` ever goes missing.
 2. **Invite Andrew** in DecapBridge, send him the /admin URL and HOW-TO-UPDATE.md.
 3. **Instagram feed** — see below.
 4. **Domain** — see below, and read "Changing the domain" before you do it.
-5. **His photos.** The five project images are stock. He replaces each one in the editor at
-   /admin → Projects → Photo. Last thing standing between this and a finished site.
+5. **His photos.** Four of the five project images are still stock — the Sherwood barn
+   build has real photos. He replaces the rest in the editor at /admin → Projects →
+   Main photo. Last thing standing between this and a finished site.
 6. **Submit the sitemap.** Google Search Console → add the property → submit
    `https://<your domain>/sitemap.xml`. Do this after the domain is set, not before.
 
@@ -140,6 +141,21 @@ Behold feed URL is designed to be public.
 - Forms are free on all plans. Behold free tier is enough. DecapBridge free.
 
 Realistic total: under $130/year.
+
+## Project photos
+
+Each project has one **main photo** (the cover, used on the cards) and an optional
+**gallery**. A project with a gallery shows a row of thumbnails under the cover on the
+Projects page; tapping one swaps the large image and its caption. No modal, no lightbox —
+it's a state swap, so there's no focus trap or keyboard handling to get wrong.
+
+Captions are optional and do double duty: they show under the photo and become that
+image's alt text. Without one, the alt falls back to "<job name> in <town>".
+
+Photos committed to the repo have their EXIF stripped. Phone photos carry GPS coordinates,
+and these are pictures of clients' homes — that metadata should not be published. The
+editor's own uploads keep their EXIF, so it's worth spot-checking anything Andrew adds
+directly if the property is sensitive.
 
 ## Photo sizes
 

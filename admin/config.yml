@@ -57,7 +57,18 @@ collections:
                 hint: "Used for the filter buttons on the Projects page."
               - { label: "Town", name: "location", widget: "string", hint: "e.g. Newberg, OR" }
               - { label: "Year", name: "year", widget: "string", required: false }
-              - { label: "Photo", name: "image", widget: "image", hint: "A phone photo is fine. Landscape works best." }
+              - { label: "Main photo", name: "image", widget: "image", hint: "A phone photo is fine. Landscape works best. This is the one that shows on the cards." }
+              - { label: "Caption for the main photo", name: "caption", widget: "string", required: false, hint: "One short line about what's in the shot. Optional." }
+              - label: "More photos"
+                name: "gallery"
+                widget: "list"
+                required: false
+                label_singular: "photo"
+                summary: "{{fields.caption}}"
+                hint: "Other shots of the same job. They appear as small thumbnails under the main photo on the Projects page — tap one and it fills the frame."
+                fields:
+                  - { label: "Photo", name: "image", widget: "image" }
+                  - { label: "Caption", name: "caption", widget: "string", required: false, hint: "One short line. Optional, but it's what screen readers and Google read." }
               - { label: "What the job was", name: "blurb", widget: "text", hint: "A sentence or two. Plain and specific beats salesy." }
 
           - label: "Reviews"

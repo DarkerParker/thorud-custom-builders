@@ -13,8 +13,23 @@
       "category": "Shops & pole buildings",
       "location": "Sherwood, OR",
       "year": "2026",
-      "image": "https://images.unsplash.com/photo-1601058268499-e52658b8bb88?w=900&q=70&auto=format&fit=crop",
-      "blurb": "An old horse barn turned into a modern shop with an attached 20x30 fully finished loft flex space. New slab with perimeter footings, new power, water and plumbing, framed and insulated throughout, then finished with LVP flooring, wall coverings, paint and lighting. Three new overhead doors, exterior lighting, new doors and windows, fresh paint."
+      "image": "/images/uploads/sherwood-barn-exterior.jpg",
+      "blurb": "An old horse barn turned into a modern shop with an attached 20x30 fully finished loft flex space. New slab with perimeter footings, new power, water and plumbing, framed and insulated throughout, then finished with LVP flooring, wall coverings, paint and lighting. Three new overhead doors, exterior lighting, new doors and windows, fresh paint.",
+      "caption": "The new shop from the drive, with the original barn attached at right.",
+      "gallery": [
+        {
+          "image": "/images/uploads/sherwood-barn-shop.jpg",
+          "caption": "Inside the shop — heavy timber trusses, new plywood walls, new overhead doors and lighting."
+        },
+        {
+          "image": "/images/uploads/sherwood-barn-loft.jpg",
+          "caption": "The finished 20x30 loft: LVP flooring, paint and new can lighting."
+        },
+        {
+          "image": "/images/uploads/sherwood-barn-framing.jpg",
+          "caption": "Roof framing going up over the new loft."
+        }
+      ]
     },
     {
       "title": "Stamped patio",
