@@ -5,8 +5,23 @@
       "category": "Outdoor living",
       "location": "Gaston, OR",
       "year": "2025",
-      "image": "https://images.unsplash.com/photo-1654563098789-0c8342adfab1?w=900&q=70&auto=format&fit=crop",
-      "blurb": "An 18'x20' open rafter patio cover with exposed 2x6 T&G decking, all tied together with a standing seam metal roof."
+      "image": "/images/uploads/patio-cover-finished.jpg",
+      "blurb": "An 18'x20' open rafter patio cover with exposed 2x6 T&G decking, all tied together with a standing seam metal roof.",
+      "caption": "The finished 18'x20' cover — open rafters under a standing seam metal roof.",
+      "gallery": [
+        {
+          "image": "/images/uploads/patio-cover-ceiling.jpg",
+          "caption": "Exposed 2x6 tongue and groove decking on the underside, carried on the new beams."
+        },
+        {
+          "image": "/images/uploads/patio-cover-framing.jpg",
+          "caption": "The frame going up — posts and beams set before the decking went on."
+        },
+        {
+          "image": "/images/uploads/patio-cover-before.jpg",
+          "caption": "Before — the original lean-to cover and its weathered metal roofing."
+        }
+      ]
     },
     {
       "title": "Sherwood barn build",
