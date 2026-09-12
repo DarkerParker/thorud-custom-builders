@@ -59,8 +59,23 @@
       "category": "Concrete",
       "location": "Newberg, OR",
       "year": "2024",
-      "image": "https://images.unsplash.com/photo-1786269691602-519fdaa112ea?w=900&q=70&auto=format&fit=crop",
-      "blurb": "All of it, from site prep excavation to the final seal. 600 sq ft poured with a stained and stamped texture finish, fully sealed for years of protection."
+      "image": "/images/uploads/stamped-patio-finished.jpg",
+      "blurb": "All of it, from site prep excavation to the final seal. 600 sq ft poured with a stained and stamped texture finish, fully sealed for years of protection.",
+      "caption": "The finished patio, stained and sealed, with the walkway and round landing run in the same stamp.",
+      "gallery": [
+        {
+          "image": "/images/uploads/stamped-patio-texture.jpg",
+          "caption": "The slate stamp up close, sealed and carried right up to the house."
+        },
+        {
+          "image": "/images/uploads/stamped-patio-prestain.jpg",
+          "caption": "The same pour before stain and sealer — stamped and cut, waiting on color."
+        },
+        {
+          "image": "/images/uploads/stamped-patio-excavation.jpg",
+          "caption": "Site prep — the area excavated and graded ahead of base and forms."
+        }
+      ]
     },
     {
       "title": "Two rotted decks, reframed and rebuilt",

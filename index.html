@@ -345,7 +345,7 @@
         <sc-for list="{{ visibleProjects }}" as="p" hint-placeholder-count="9">
           <div>
             <div style="aspect-ratio: 4 / 3; border-radius: 3px; overflow: hidden; background: oklch(0.9 0.014 85);">
-              <img src="{{ p.shot.img }}" srcset="{{ p.shot.srcset }}" sizes="{{ p.sizes }}" width="1200" height="900" alt="{{ p.shot.alt }}" loading="{{ p.loading }}" fetchpriority="{{ p.priority }}" decoding="async" data-src="{{ p.shot.fallback }}" onError="{{ onImgError }}" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+              <img src="{{ p.shot.img }}" srcset="{{ p.shot.srcset }}" sizes="{{ p.sizes }}" width="1200" height="900" alt="{{ p.shot.alt }}" loading="lazy" decoding="async" data-src="{{ p.shot.fallback }}" onError="{{ onImgError }}" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
             </div>
             <sc-if value="{{ p.hasGallery }}" hint-placeholder-val="{{ false }}">
             <div role="group" aria-label="{{ p.galleryLabel }}" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 6px; margin-top: 6px;">
@@ -850,18 +850,13 @@ class Component extends DCLogic {
       ].map((name, i) => ({ n: String(i + 1).padStart(2, "0"), name: name })),
       featured: projects.slice(0, 3),
       visibleProjects: (f === "All" ? projects : projects.filter(x => x.cat === f))
-        .map((project, position) => {
+        .map(project => {
           const photos = project.photos && project.photos.length
             ? project.photos : [project];
           const i = Math.min(Number((this.state.shot || {})[project.id]) || 0, photos.length - 1);
           const shot = photos[i];
           return Object.assign({}, project, {
             shot: shot,
-            // The top card sits in the viewport on load and is what LCP
-            // measures; lazy-loading it hides the request from the preload
-            // scanner and pushes LCP out by about a second.
-            loading: position === 0 ? "eager" : "lazy",
-            priority: position === 0 ? "high" : undefined,
             hasGallery: photos.length > 1,
             hasCaption: !!shot.caption,
             galleryLabel: "More photos of " + project.title,
