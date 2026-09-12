@@ -44,9 +44,18 @@ pins), and support.js still falls back to unpkg if `vendor/` ever goes missing.
 2. **Invite Andrew** in DecapBridge, send him the /admin URL and HOW-TO-UPDATE.md.
 3. **Instagram feed** — see below.
 4. **Domain** — see below, and read "Changing the domain" before you do it.
-5. **His photos.** Four of the five project images are still stock — the Sherwood barn
-   build has real photos. He replaces the rest in the editor at /admin → Projects →
-   Main photo. Last thing standing between this and a finished site.
+5. **Remaining stock photos.** All three projects now use Andrew's own photos, but two
+   surfaces on the home page are still Unsplash stock:
+   - the **wide hero image** under the trust bar (an excavator that isn't his)
+   - the **"From the job site" strip**, but only as a fallback — the Behold feed in
+     content.json supplies the real posts, and the stock set shows only if that feed
+     is unreachable. Its alt text claims the photos come from his Instagram, which is
+     untrue of the fallback.
+
+   Two earlier projects ("Two rotted decks" in Milwaukie and the Forest Grove basement)
+   were removed because they only ever had stock photos. Both jobs look genuine — each
+   matches a customer review still on the site — so if Andrew finds photos they are
+   worth adding back through /admin.
 6. **Submit the sitemap.** Google Search Console → add the property → submit
    `https://<your domain>/sitemap.xml`. Do this after the domain is set, not before.
 
