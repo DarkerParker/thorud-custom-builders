@@ -1,6 +1,6 @@
 # thorudcustombuilders — deployment notes
 
-Live: https://imaginative-cendol-8a600c.netlify.app
+Live: https://thorudcustombuilders.com
 Repo: DarkerParker/thorud-custom-builders (public — required, see "Contributor errors" below)
 Editor: /admin, auth via DecapBridge (site id 4d0b0356-1046-4359-b494-aa1187527464)
 
@@ -110,7 +110,7 @@ owned elsewhere, Netlify gives you two nameservers for the registrar. HTTPS is a
 ### Changing the domain
 
 The site tells search engines its own address, so five places hold the URL and all five
-have to change together. Search the repo for `imaginative-cendol-8a600c.netlify.app`:
+have to change together. Search the repo for the current host (`thorudcustombuilders.com`):
 
 1. `index.html` — `<head>`: the canonical link, `og:url`, `og:image`, `twitter:image`
    and the URLs inside the JSON-LD block
