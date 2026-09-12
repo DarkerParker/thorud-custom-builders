@@ -347,9 +347,9 @@
               <img src="{{ p.shot.img }}" srcset="{{ p.shot.srcset }}" sizes="{{ p.sizes }}" width="1200" height="900" alt="{{ p.shot.alt }}" loading="lazy" decoding="async" data-src="{{ p.shot.fallback }}" onError="{{ onImgError }}" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
             </div>
             <sc-if value="{{ p.hasGallery }}" hint-placeholder-val="{{ false }}">
-            <div role="group" aria-label="{{ p.galleryLabel }}" style="display: flex; gap: 6px; margin-top: 6px;">
+            <div role="group" aria-label="{{ p.galleryLabel }}" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 6px; margin-top: 6px;">
               <sc-for list="{{ p.thumbs }}" as="t" hint-placeholder-count="4">
-                <button type="button" onClick="{{ t.onClick }}" aria-pressed="{{ t.selected }}" aria-label="{{ t.label }}" style="flex: 1; aspect-ratio: 4 / 3; padding: 0; border: 0; border-radius: 2px; overflow: hidden; cursor: pointer; background: oklch(0.9 0.014 85); opacity: {{ t.opacity }}; outline: {{ t.ring }}; outline-offset: -2px;">
+                <button type="button" onClick="{{ t.onClick }}" aria-pressed="{{ t.selected }}" aria-label="{{ t.label }}" style="width: 100%; aspect-ratio: 4 / 3; padding: 0; border: 0; border-radius: 2px; overflow: hidden; cursor: pointer; background: oklch(0.9 0.014 85); opacity: {{ t.opacity }}; outline: {{ t.ring }}; outline-offset: -2px;">
                   <img src="{{ t.img }}" srcset="{{ t.srcset }}" sizes="96px" width="400" height="300" alt="" loading="lazy" decoding="async" data-src="{{ t.fallback }}" onError="{{ onImgError }}" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
                 </button>
               </sc-for>
