@@ -507,6 +507,52 @@ function routeFromPath(pathname) {
   return "home";
 }
 
+// ── Analytics ────────────────────────────────────────────────────────────────
+// Google Analytics 4. Paste the property's Measurement ID below — it looks
+// like "G-XXXXXXXXXX" and lives in GA under Admin → Data streams → the web
+// stream. While it is empty nothing loads at all: no script, no cookies, no
+// requests to Google.
+//
+// ONE SETTING TO CHANGE once an ID is in: GA → Admin → Data streams → the web
+// stream → Enhanced measurement → turn OFF "Page changes based on browser
+// history events". This site is one HTML file that swaps its own content, so
+// it sends its own page_view after the title and URL have been updated —
+// which is the only point at which they are correct. Leaving that setting on
+// makes GA send a second one of its own and every navigation counts twice.
+const GA_MEASUREMENT_ID = "";
+
+/** Loads gtag.js once, after the window load event. Analytics is not worth
+ *  spending LCP or main-thread time on during the first render, and nothing
+ *  here needs to run before the page is usable. */
+function startAnalytics() {
+  if (!GA_MEASUREMENT_ID || window.__gaStarted) return;
+  window.__gaStarted = true;
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+  window.gtag("js", new Date());
+  // page_view is sent by hand, here and on every route change.
+  window.gtag("config", GA_MEASUREMENT_ID, { send_page_view: false });
+  const s = document.createElement("script");
+  s.async = true;
+  s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(GA_MEASUREMENT_ID);
+  document.head.appendChild(s);
+  trackPageView();
+}
+
+/** No-ops when analytics is switched off or gtag has not loaded yet, so every
+ *  call site can stay unconditional. */
+function track(name, params) {
+  if (typeof window.gtag === "function") window.gtag("event", name, params || {});
+}
+
+function trackPageView() {
+  track("page_view", {
+    page_title: document.title,
+    page_location: location.href,
+    page_path: location.pathname
+  });
+}
+
 // ── Images ───────────────────────────────────────────────────────────────────
 // Widths every photo is offered at, and the layout rule that tells the browser
 // which one to pick. Cards are ~376px wide at the 1180px container, one column
@@ -704,6 +750,20 @@ class Component extends DCLogic {
     window.addEventListener("popstate", this._onPop);
     this.syncHead(this.state.page);
 
+    if (document.readyState === "complete") startAnalytics();
+    else window.addEventListener("load", startAnalytics, { once: true });
+
+    // One delegated listener rather than handlers on each link: the phone
+    // number appears in the header, the footer, the mobile bar and the
+    // contact page, and for a contractor a tapped number is the lead.
+    this._onContactClick = (e) => {
+      const el = e.target && e.target.closest
+        ? e.target.closest('a[href^="tel:"], a[href^="mailto:"]') : null;
+      if (!el) return;
+      track(el.getAttribute("href").indexOf("tel:") === 0 ? "click_to_call" : "click_to_email");
+    };
+    document.addEventListener("click", this._onContactClick);
+
     // iOS Chrome: dynamic browser controls can leave the page scrolled a few px
     // on first paint, pushing the sticky header off-screen. Pin to top once.
     if ("scrollRestoration" in history) history.scrollRestoration = "manual";
@@ -743,6 +803,7 @@ class Component extends DCLogic {
   componentWillUnmount() {
     window.removeEventListener("resize", this._onResize);
     window.removeEventListener("popstate", this._onPop);
+    document.removeEventListener("click", this._onContactClick);
     if (this._onPinLoad) window.removeEventListener("load", this._onPinLoad);
     (this._pinTimers || []).forEach(clearTimeout);
   }
@@ -769,6 +830,8 @@ class Component extends DCLogic {
     }
     this.setState({ page: page });
     this.syncHead(page);
+    // After syncHead: the title and canonical URL are only right by now.
+    trackPageView();
     if (typeof window !== "undefined") window.scrollTo({ top: 0 });
   }
 
@@ -920,6 +983,7 @@ class Component extends DCLogic {
           })
             .then(r => {
               if (!r.ok) throw new Error("bad status");
+              track("generate_lead", { method: "contact_form" });
               this.setState({ sent: true, sentMode: "posted", sending: false });
             })
             .catch(() => { this.setState({ sending: false }); this.mailtoFallback(v); });

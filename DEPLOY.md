@@ -58,6 +58,8 @@ pins), and support.js still falls back to unpkg if `vendor/` ever goes missing.
    worth adding back through /admin.
 6. **Submit the sitemap.** Google Search Console → add the property → submit
    `https://<your domain>/sitemap.xml`. Do this after the domain is set, not before.
+7. **Turn analytics on.** The code is in and switched off. See "Analytics" below:
+   it needs a Measurement ID pasted in, and one setting changed inside GA.
 
 ## The contact form
 
@@ -83,7 +85,7 @@ fails on phones with no mail app configured.
 
 The same goes for everything in `<head>` — the title, description, canonical link, the
 Open Graph and Twitter tags, the icons, the `@font-face` rules and the JSON-LD business
-listing. Those deliberately sit in the real document head rather than in the template's
+listing — and for the analytics block in the script at the bottom of the file. Those deliberately sit in the real document head rather than in the template's
 helmet block, because Facebook, LinkedIn and iMessage read the raw HTML and never run the
 JavaScript that would move a helmet into place. A regenerated file will put them back
 inside the helmet block, where crawlers can't see them.
@@ -165,6 +167,45 @@ Photos committed to the repo have their EXIF stripped. Phone photos carry GPS co
 and these are pictures of clients' homes — that metadata should not be published. The
 editor's own uploads keep their EXIF, so it's worth spot-checking anything Andrew adds
 directly if the property is sensitive.
+
+## Analytics
+
+Google Analytics 4 is wired in but **off until a Measurement ID is set**. With the
+ID blank nothing loads: no script, no cookies, no requests to Google.
+
+To switch it on, two steps — both are needed, and the second is easy to miss:
+
+1. In `index.html`, find `const GA_MEASUREMENT_ID = "";` near the top of the script
+   at the bottom of the file, and paste the ID between the quotes. It looks like
+   `G-XXXXXXXXXX` and lives in GA under **Admin → Data streams →** the web stream.
+   It isn't a secret — it ships in the page source, which is normal and fine.
+2. In GA, go to **Admin → Data streams →** the web stream → **Enhanced measurement**
+   and turn **off** "Page changes based on browser history events".
+
+Step 2 matters because this site is a single HTML file that swaps its own content.
+It sends its own `page_view` after updating the title and URL, which is the only
+moment both are correct. GA's enhanced measurement would send a second one of its
+own on the same navigation, so every move between pages would count twice and the
+first would carry the *previous* page's title.
+
+What gets recorded:
+
+    page_view        every page, including moves between them and the back button
+    generate_lead    the contact form submitted successfully (method: contact_form)
+    click_to_call    a tap on the phone number, anywhere on the site
+    click_to_email   a tap on the email address
+
+For a contractor the last three are the ones worth watching. Visit counts say little;
+how many people actually called is the number that matters.
+
+gtag.js loads after the window `load` event rather than in the head, so it costs
+nothing during the first render. Measured with the ID blank: 100 / 97 / 100 across
+the three pages, unchanged. The cost once it is on has not been measured — re-run
+Lighthouse after switching it on if the score matters.
+
+GA sets its own cookies once live. For a US business this size no cookie banner is
+generally expected; that changes if you start marketing to the EU or UK. Not legal
+advice.
 
 ## Photo sizes
 
